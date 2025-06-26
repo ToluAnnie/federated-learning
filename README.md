@@ -123,9 +123,9 @@ python server.py
 2. **Run clients in separate terminals**:
 
 ```bash
-python client.py 1  # Client 1
-python client.py 2  # Client 2
-python client.py 3  # Client 3
+python client.py --client-id 1  # Client 1
+python client.py 2 --client-id 2 # Client 2
+python client.py 3 --client-id 3 # Client 3
 ```
 
 ## Testing
@@ -209,10 +209,10 @@ pip install opacus diffprivlib
 1. Open **additional terminals** for each client.
 2. Execute clients sequentially:  
    ```bash
-   python client.py 1  # Client 1
-   python client.py 2  # Client 2
-   python client.py 3  # Client 3
-   ```
+   python client.py --client-id 1  # Client 1
+python client.py 2 --client-id 2 # Client 2
+python client.py 3 --client-id 3 # Client 3
+```
    - Each client trains the model on synthetic data and sends updates to the server.
    - Verify server logs for confirmation of client connection events and output the print statement “Client.id connected to server and starting training…” to show when client has successfully connected to the server and has begun training data
 
@@ -221,8 +221,8 @@ pip install opacus diffprivlib
 1. **Verify Client Execution**  
    - Ensure clients are running in **separate terminals**:
      ```bash
-     python client.py 1
-     python client.py 2
-     python client.py 3
-     ```
+     python client.py --client-id 1  # Client 1
+python client.py 2 --client-id 2 # Client 2
+python client.py 3 --client-id 3 # Client 3
+```
    - If no clients are active, the server will wait indefinitely for a connection.
