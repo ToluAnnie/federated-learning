@@ -22,9 +22,16 @@ class DifferentialPrivacy:
         """
         noisy_weights = []
         for weight in weights:
-            # Add noise to each weight parameter
-            noisy_weight = self.laplace_mech.randomise(weight.item())
-            noisy_weights.append(torch.tensor([noisy_weight]))
+            # Handle multi-element tensors by applying noise to each element
+            if weight.dim() > 0:
+                # Flatten the tensor to process each element
+                flat_weight = weight.flatten()
+                noisy_elements = [self.laplace_mech.randomise(w.item()) for w in flat_weight]
+                noisy_weight = torch.tensor(noisy_elements).view(weight.shape)
+            else:
+                # Scalar tensor
+                noisy_weight = self.laplace_mech.randomise(weight.item())
+            noisy_weights.append(noisy_weight)
         return torch.cat(noisy_weights)
 
 # Example usage (can be run locally for testing)
