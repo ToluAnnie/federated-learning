@@ -1,13 +1,15 @@
 import torch
 from torch import nn, optim
-from flwr.server import Server
+import flwr as fl
+from flwr.server.client_manager import SimpleClientManager
 from flwr.server.strategy import FedAvg
 from models.federated_logistic_regression import FederatedLogisticRegression
-from privacy.differential_privacy import add_differential_privacy
+from privacy.differential_privacy import DifferentialPrivacy
 
-class CentralizedServer:
+class CentralizedServer(fl.server.Server):
     def __init__(self):
-        self.model = FederatedLogisticRegression()
+        super().__init__(client_manager=fl.server.SimpleClientManager())
+        self.model = FederatedLogisticRegression(input_dim=5)
         self.optimizer = optim.SGD(self.model.parameters(), lr=0.01)
         self.strategy = FedAvg()
 
@@ -18,5 +20,6 @@ class CentralizedServer:
             server.fit(clients)
             server.evaluate(clients)
             # Aggregate updates with differential privacy
-            updated_weights = add_differential_privacy(server.get_weights())
+            dp = DifferentialPrivacy(epsilon=1.0, sensitivity=1.0)
+            updated_weights = dp.add_noise_to_weights(server.get_weights())
             server.set_weights(updated_weights)
