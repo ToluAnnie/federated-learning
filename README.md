@@ -62,7 +62,7 @@ Each client uses a synthetic healthcare dataset with the following features:
 Install in your project directory:
 
 ```bash
-pip install torch flwr numpy
+pip install torch flwr numpy flower-superlink
 ```
 
 ## File Structure
@@ -169,7 +169,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ### Missing Dependencies
 
 ```bash
-pip install torch flwr numpy
+pip install torch flwr numpy flower-superlink
 ```
 
 ### Virtual Environment
@@ -185,4 +185,43 @@ pip install -r requirements.txt
 
 ```bash
 pip install opacus diffprivlib
-```
+
+
+### Prerequisites
+1. Install dependencies:  
+   ```bash
+   pip install -r requirements.txt
+   ```
+2. Ensure `flower-superlink` is available in your environment.
+
+## Implementation Guide: Server and Client Setup
+
+### Starting the Server
+1. Open a terminal and navigate to your project directory.
+2. Run the central server:  
+   ```bash
+   python server.py
+   ```
+   - This initializes the federated learning server using `flower-superlink` for communication.
+   - The server listens for client connections on `localhost:8080`.
+
+### Running Clients
+1. Open **additional terminals** for each client.
+2. Execute clients sequentially:  
+   ```bash
+   python client.py 1  # Client 1
+   python client.py 2  # Client 2
+   python client.py 3  # Client 3
+   ```
+   - Each client trains the model on synthetic data and sends updates to the server.
+   - Verify server logs for confirmation of client connections.
+
+### Resolution Steps
+1. **Verify Client Execution**  
+   - Ensure clients are running in **separate terminals**:
+     ```bash
+     python client.py 1
+     python client.py 2
+     python client.py 3
+     ```
+   - If no clients are active, the server will wait indefinitely for a connection.
