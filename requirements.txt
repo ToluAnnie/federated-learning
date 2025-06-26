@@ -1,0 +1,7 @@
+torch
+flwr
+numpy
+flower-superlink
+# Optional dependencies for differential privacy
+opacus
+diffprivlib
