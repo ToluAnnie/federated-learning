@@ -1,17 +1,9 @@
 import numpy as np
 import pandas as pd
 
-def generate_synthetic_health_data(num_samples=1000):
+def generate_synthetic_health_data(num_samples=1000, client_id=None):
     """Generate synthetic healthcare data with features relevant to diabetes risk."""
-    return generate_synthetic_health_data(num_samples)
-
-def load_client_data(num_samples=1000):
-    """Alias for generate_synthetic_health_data for client compatibility."""
-    return generate_synthetic_health_data(num_samples)
-    """
-    Generate synthetic healthcare data with features relevant to diabetes risk.
-    Data stays local - never shared with external systems.
-    """
+    # Generate synthetic healthcare data with features relevant to diabetes risk
     np.random.seed(42)
     
     # Create realistic-looking features
@@ -37,7 +29,16 @@ def load_client_data(num_samples=1000):
         'diabetes_risk': diabetes_risk
     })
     
+    # Split data into 3 client partitions if client_id is provided
+    if client_id is not None:
+        # Simple partitioning - in real scenario, use stratified sampling
+        df = df.iloc[client_id * (num_samples // 3): (client_id + 1) * (num_samples // 3)]
+    
     return df
+
+def load_client_data(num_samples=1000):
+    """Alias for generate_synthetic_health_data for client compatibility."""
+    return generate_synthetic_health_data(num_samples)
 
 # Example usage (can be run locally for testing)
 if __name__ == "__main__":
