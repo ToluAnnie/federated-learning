@@ -2,6 +2,12 @@ import numpy as np
 import pandas as pd
 
 def generate_synthetic_health_data(num_samples=1000):
+    """Generate synthetic healthcare data with features relevant to diabetes risk."""
+    return generate_synthetic_health_data(num_samples)
+
+def load_client_data(num_samples=1000):
+    """Alias for generate_synthetic_health_data for client compatibility."""
+    return generate_synthetic_health_data(num_samples)
     """
     Generate synthetic healthcare data with features relevant to diabetes risk.
     Data stays local - never shared with external systems.
