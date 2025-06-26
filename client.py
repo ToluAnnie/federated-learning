@@ -3,7 +3,7 @@ from torch.utils.data import DataLoader
 from flwr.client import Client
 from data.synthetic_health_data import load_client_data
 from models.federated_logistic_regression import FederatedLogisticRegression
-from privacy.differential_privacy import add_differential_privacy
+from privacy.differential_privacy import DifferentialPrivacy
 
 class Client(Client):
     def __init__(self, client_id):
