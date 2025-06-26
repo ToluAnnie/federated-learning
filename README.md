@@ -214,7 +214,8 @@ pip install opacus diffprivlib
    python client.py 3  # Client 3
    ```
    - Each client trains the model on synthetic data and sends updates to the server.
-   - Verify server logs for confirmation of client connections.
+   - Verify server logs for confirmation of client connection events and output the print statement “Client.id connected to server and starting training…” to show when client has successfully connected to the server and has begun training data
+
 
 ### Resolution Steps
 1. **Verify Client Execution**  
