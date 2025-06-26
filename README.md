@@ -44,9 +44,7 @@ Each client uses a synthetic healthcare dataset with the following features:
 * Physical Activity
 
   
-## Architecture Diagram
-
-![Federated Learning Diagram](federated_learning_diagram.png)
+## Architecture
 
 * The server coordinates training and aggregates model updates.
 * Each client trains on its own local dataset.
