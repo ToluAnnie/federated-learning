@@ -189,3 +189,5 @@ pip install -r requirements.txt
 
 ```
 ```
+
+You can find detailed information on my approach, the challenges encountered, and the solutions I implemented in the attached Google Doc https://docs.google.com/document/d/174QJM5-VaEnFeTiXuqx0C5NYxgLszB9TLJ0IbUE-Fto/edit?usp=sharing
