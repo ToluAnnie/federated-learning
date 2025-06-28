@@ -1,3 +1,4 @@
+````markdown
 # Federated Learning for Privacy-Preserving Diabetes Risk Prediction
 
 ## Overview
@@ -25,7 +26,7 @@ Example patient data:
 
 ```python
 {"age": 50, "bmi": 30.1, "blood sugar": 150, "family history": 'yes', "physical activity": 'no', }
-```
+````
 
 Predicted Output:
 
@@ -37,32 +38,31 @@ Risk Score: 0.76 → Likely diabetic
 
 Each client uses a synthetic healthcare dataset with the following features:
 
-* Age
-* BMI (Body Mass Index)
-* Blood Sugar
-* Family History
-* Physical Activity
+  * Age
+  * BMI (Body Mass Index)
+  * Blood Sugar
+  * Family History
+  * Physical Activity
 
-  
 ## Architecture
 
-* The server coordinates training and aggregates model updates.
-* Each client trains on its own local dataset.
-* No raw data is shared; only encrypted model updates are exchanged.
+  * The server coordinates training and aggregates model updates.
+  * Each client trains on its own local dataset.
+  * No raw data is shared; only encrypted model updates are exchanged.
 
 ## Prerequisites
 
 ### Software
 
-* [Python 3.11+](https://www.python.org/downloads/)
-* [Git](https://git-scm.com/)
+  * [Python 3.11+](https://www.python.org/downloads/)
+  * [Git](https://git-scm.com/)
 
 ### Python Dependencies
 
 Install in your project directory:
 
 ```bash
-pip install torch flwr numpy flower-superlink
+pip install torch flwr numpy flower-superlink diffprivlib
 ```
 
 ## File Structure
@@ -74,11 +74,8 @@ pip install torch flwr numpy flower-superlink
 │   └── federated_logistic_regression.py  # PyTorch model definition
 ├── privacy/
 │   └── differential_privacy.py       # Differential privacy implementation
-├── clients/
-│   └── client.py                     # Federated learning client implementation
-├── server/
-│   └── server.py                     # Centralized federated learning server
-├── centralized.py                    # Central server logic with FedAvg strategy
+├── client.py                         # Federated learning client implementation
+├── server.py                         # Centralized federated learning server
 ├── README.md                         # This file
 ├── .gitignore                        # Git version control configuration
 └── requirements.txt                  # Python dependencies
@@ -86,7 +83,7 @@ pip install torch flwr numpy flower-superlink
 
 ## Setup and Execution
 
-### 1. Initialize Git Repository
+### 1\. Initialize Git Repository
 
 ```bash
 git init
@@ -94,135 +91,102 @@ git add .
 git commit -m "Initial commit: Federated learning diabetes prediction system"
 ```
 
-### 2. Create GitHub Repository
+### 2\. Create GitHub Repository
 
-1. Go to [GitHub New Repository](https://github.com/new)
-2. Create a new repository (e.g., `federated-diabetes-prediction`)
+1.  Go to [GitHub New Repository](https://github.com/new)
+2.  Create a new repository (e.g., `federated-diabetes-prediction`)
 
-### 3. Push to GitHub
+### 3\. Push to GitHub
 
 ```bash
-git remote add origin https://github.com/your-username/repo-name.git
+git remote add origin [https://github.com/your-username/repo-name.git](https://github.com/your-username/repo-name.git)
 git push -u origin main
 ```
 
-### 4. Install Dependencies
+### 4\. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 5. Run the System
+### 5\. Run the System
 
-1. **Start the central server**:
+1.  **Start the central server**:
+
+<!-- end list -->
 
 ```bash
 python server.py
 ```
 
-2. **Run clients in separate terminals**:
+2.  **Run clients in separate terminals**:
+
+<!-- end list -->
 
 ```bash
-python client.py --client-id 1  # Client 1
-python client.py 2 --client-id 2 # Client 2
-python client.py 3 --client-id 3 # Client 3
+python client.py --client-id 1
+python client.py --client-id 2
+python client.py --client-id 3
 ```
+
+  - Each client trains the model on synthetic data and sends updates to the server.
+  - Verify server logs for confirmation of client connection events.
 
 ## Testing
 
 ```bash
-python tests/test_federated_learning.py
+python test_federated_learning.py
 ```
 
 ## Model Details
 
-* Logistic regression model for binary classification (diabetes risk)
-* BCELoss for binary cross-entropy
-* SGD optimizer with learning rate 0.01
-* Federated Averaging (FedAvg) strategy
+  * Logistic regression model for binary classification (diabetes risk)
+  * BCELoss for binary cross-entropy
+  * SGD optimizer with learning rate 0.01
+  * Federated Averaging (FedAvg) strategy
 
 ## Limitations and Future Work
 
-* Synthetic data may not fully represent real patient variation
-* Secure aggregation with cryptographic primitives not yet integrated
-* Model may underperform in highly imbalanced datasets
-* Future plans:
+  * Synthetic data may not fully represent real patient variation
 
-  * Integrate secure aggregation protocols
-  * Deploy real-world datasets (de-identified and consented)
-  * Optimize model for edge deployment
+  * Secure aggregation with cryptographic primitives not yet integrated
+
+  * Model may underperform in highly imbalanced datasets
+
+  * Future plans:
+
+      * Integrate secure aggregation protocols
+      * Deploy real-world datasets (de-identified and consented)
+      * Optimize model for edge deployment
 
 ## Contributing
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/your-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin feature/your-feature`)
-5. Create a new Pull Request
+1.  Fork the repository
+2.  Create your feature branch (`git checkout -b feature/your-feature`)
+3.  Commit your changes (`git commit -am 'Add some feature'`)
+4.  Push to the branch (`git push origin feature/your-feature`)
+5.  Create a new Pull Request
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://www.google.com/search?q=LICENSE) file for details.
 
 ## Troubleshooting
 
 ### Missing Dependencies
 
 ```bash
-pip install torch flwr numpy flower-superlink
+pip install torch flwr numpy flower-superlink diffprivlib
 ```
 
 ### Virtual Environment
 
 ```bash
 python -m venv venv
-source venv/bin/activate  # Linux/macOS
-venv\Scripts\activate     # Windows
+source venv/bin/activate    # Linux/macOS
+venv\Scripts\activate       # Windows
 pip install -r requirements.txt
 ```
 
-### Differential Privacy Libraries (Optional)
-
-```bash
-pip install opacus diffprivlib
-
-
-### Prerequisites
-1. Install dependencies:  
-   ```bash
-   pip install -r requirements.txt
-   ```
-2. Ensure `flower-superlink` is available in your environment.
-
-## Implementation Guide: Server and Client Setup
-
-### Starting the Server
-1. Open a terminal and navigate to your project directory.
-2. Run the central server:  
-   ```bash
-   python server.py
-   ```
-   - This initializes the federated learning server using `flower-superlink` for communication.
-   - The server listens for client connections on `localhost:8080`.
-
-### Running Clients
-1. Open **additional terminals** for each client.
-2. Execute clients sequentially:  
-   ```bash
-   python client.py 1 --client-id 1 # Client 1
-   python client.py 2 --client-id 2 # Client 2
-   python client.py 3 --client-id 3 # Client 3
 ```
-   - Each client trains the model on synthetic data and sends updates to the server.
-   - Verify server logs for confirmation of client connection events and output the print statement “Client.id connected to server and starting training…” to show when client has successfully connected to the server and has begun training data
-
-
-### Resolution Steps
-1. **Verify Client Execution**  
-   - Ensure clients are running in **separate terminals**:
-     ```bash
-    python client.py 1 --client-id 1 # Client 1
-    python client.py 2 --client-id 2 # Client 2
-    python client.py 3 --client-id 3 # Client 3
 ```
-   - If no clients are active, the server will wait indefinitely for a connection.
