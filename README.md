@@ -1,4 +1,3 @@
-````markdown
 # Federated Learning for Privacy-Preserving Diabetes Risk Prediction
 
 ## Overview
