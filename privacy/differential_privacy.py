@@ -1,38 +1,35 @@
 from diffprivlib import mechanisms
+import numpy as np
 import torch
 
 class DifferentialPrivacy:
     """
     Privacy-preserving module for federated learning.
-    This implementation can be published to GitHub.
     """
-    def __init__(self, epsilon=1.0, sensitivity=1.0):
+    def __init__(self, epsilon: float = 1.0, sensitivity: float = 1.0):
         """
         Initialize with differential privacy parameters.
-        Local configuration file should contain these parameters.
         """
         self.epsilon = epsilon
         self.sensitivity = sensitivity
         self.laplace_mech = mechanisms.Laplace(epsilon=self.epsilon, sensitivity=self.sensitivity)
-    
-    def add_noise_to_weights(self, weights):
+
+    def add_noise_to_weights(self, weights: np.ndarray) -> np.ndarray:
         """
-        Add differential privacy noise to model weights before sharing.
-        This ensures patient data never leaves the device.
+        Add differential privacy noise to model weights.
         """
-        noisy_weights = []
-        for weight in weights:
-            # Convert all tensors to 1D for uniform processing
-            flat_weight = weight.flatten()
-            noisy_elements = [self.laplace_mech.randomise(w.item()) for w in flat_weight]
-            noisy_weight = torch.tensor(noisy_elements)
-            noisy_weights.append(noisy_weight)
-        return torch.cat(noisy_weights)
+        noisy_weights = np.zeros_like(weights)
+        for i in np.ndindex(weights.shape):
+            noisy_weights[i] = self.laplace_mech.randomise(weights[i])
+        return noisy_weights
 
 # Example usage (can be run locally for testing)
 if __name__ == "__main__":
-    # Create synthetic data
+    from torch.utils.data import TensorDataset, DataLoader
     from data.synthetic_health_data import generate_synthetic_health_data
+    from models.federated_logistic_regression import FederatedLogisticRegression
+    
+    # Create synthetic data
     data = generate_synthetic_health_data(1000)
     
     # Convert to PyTorch tensors
@@ -49,6 +46,12 @@ if __name__ == "__main__":
     
     # Apply differential privacy to model weights
     dp = DifferentialPrivacy(epsilon=1.0, sensitivity=0.1)
-    noisy_weights = dp.add_noise_to_weights(model.state_dict()['linear.weight'])
-    print("Noisy weights (with differential privacy):")
-    print(noisy_weights)
+    
+    # Get weights as NumPy arrays
+    weights_np = model.linear.weight.detach().numpy()
+    noisy_weights_np = dp.add_noise_to_weights(weights_np)
+    
+    print("Original weights:")
+    print(weights_np)
+    print("\nNoisy weights (with differential privacy):")
+    print(noisy_weights_np)
